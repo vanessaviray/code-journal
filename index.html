@@ -14,13 +14,18 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet" />
   </head>
   <body>
     <header>
       <div class="container">
         <div class="row">
           <div class="column-full">
-            <h1 id="header-title">Code Journal</h1>
+            <p id="header-title">Code Journal</p>
           </div>
         </div>
       </div>
@@ -36,17 +41,19 @@
 
         <div class="row" id="img-inputs">
           <div class="column-half">
-            <img src="images/placeholder-image-square.jpg" />
+            <div id="img-wrapper">
+              <img src="images/placeholder-image-square.jpg" />
+            </div>
           </div>
           <div class="column-half">
             <div class="title-and-photo-fields">
               <div class="title-field">
                 <label for="title-field">Title</label>
-                <input type="text" id="title-field" />
+                <input type="text" id="title-field" required />
               </div>
               <div class="photo-url-field">
                 <label for="photo-url-field">Photo URL</label>
-                <input type="text" id="photo-url-field" />
+                <input type="text" id="photo-url-field" required />
               </div>
             </div>
           </div>
@@ -56,8 +63,19 @@
           <div class="column-full" id="notes-field-section">
             <label for="notes-field">Notes</label>
             <textarea class="notes-field" id="notes-field"></textarea>
+            <div id="save-button">
+              <button>SAVE</button>
+            </div>
           </div>
         </div>
+
+        <!-- <div class="row">
+          <div class="column-full">
+            <div class="button-wrapper">
+              <button>SAVE</button>
+            </div>
+          </div>
+        </div> -->
       </div>
       <div data-view="entries" class="hidden"></div>
     </main>

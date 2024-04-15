@@ -3,34 +3,52 @@
 }
 
 header > .container {
-  background-color: #4c2676;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #562b81;
+  font-weight: 400;
+  font-size: 20px;
+  height: 53px;
 }
 
 body {
   background-color: #eee;
+  font-family: 'Proza Libre', sans-serif;
+  font-weight: 600;
+}
+
+#img-wrapper {
+  height: 400px;
+  width: 100%;
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 img {
   max-width: 100%;
-  margin-bottom: 0.5rem;
 }
 
 input {
-  border-color: #ccc;
-  border-radius: 0.2rem;
+  border-style: solid;
+  border-color: #b6b6b6;
+  border-radius: 0.3rem;
   border-width: 1px;
-  height: 2rem;
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
+  height: 3rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1.75rem;
 }
 
 textarea {
-  border-color: #ccc;
-  border-radius: 0.2rem;
+  border-style: solid;
+  border-color: #b6b6b6;
+  border-radius: 0.3rem;
   border-width: 1px;
-  width: 100%;
   height: 6rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 #notes-field-section {
@@ -46,4 +64,23 @@ textarea {
 .photo-url-field {
   display: flex;
   flex-direction: column;
+}
+
+#save-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+button {
+  font-size: 16px;
+  background-color: #562b81;
+  border-style: none;
+  border-radius: 0.3rem;
+  color: white;
+  padding: 0.5rem;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
