@@ -84,3 +84,8 @@ button {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+
+button:hover {
+  background-color: #875ab4;
+  cursor: pointer;
+}
