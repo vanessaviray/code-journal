@@ -1,12 +1,11 @@
 'use strict';
 // /* global data */
-// Set the src of the img element to the value in the photo url input
 const $photoUrlElement = document.querySelector('#photo-url-field');
 if (!$photoUrlElement) throw new Error('the photo-url-field query failed');
+const $image = document.querySelector('img');
 function getPhoto(event) {
   const eventTarget = event.target;
   const photoUrl = eventTarget.value;
-  const $image = document.querySelector('img');
   if (!$image) throw new Error('the img query failed');
   $image.src = photoUrl;
 }
@@ -23,12 +22,8 @@ $entryForm.addEventListener('submit', (event) => {
     entryId: data.nextEntryId,
   };
   data.nextEntryId++;
-  data.entries.push($formData);
-  const $image = document.querySelector('img');
+  data.entries.unshift($formData);
   if (!$image) throw new Error('the img query failed');
   $image.src = 'images/placeholder-image-square.jpg';
   $entryForm.reset();
-  console.log($formData);
-  console.log(data.nextEntryId);
-  console.log(data.entries);
 });

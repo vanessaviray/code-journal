@@ -6,7 +6,6 @@ const data = {
   editing: null,
   nextEntryId: 1,
 };
-console.log(data);
 const previousEntriesJSON = localStorage.getItem('javascript-local-storage');
 window.addEventListener('beforeunload', () => {
   const entriesJSON = JSON.stringify(data.entries);

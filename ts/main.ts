@@ -33,7 +33,7 @@ $entryForm.addEventListener('submit', (event: Event): void => {
     entryId: data.nextEntryId,
   };
   data.nextEntryId++;
-  data.entries.push($formData);
+  data.entries.unshift($formData);
   if (!$image) throw new Error('the img query failed');
   $image.src = 'images/placeholder-image-square.jpg';
   $entryForm.reset();
