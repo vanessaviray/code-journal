@@ -98,9 +98,3 @@ input:focus {
 textarea:focus {
   outline: 2px solid #562b81;
 }
-
-@media (width <= 768px) {
-  #img-wrapper {
-    height: 245px;
-  }
-}
