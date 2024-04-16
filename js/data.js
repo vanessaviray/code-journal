@@ -1,6 +1,6 @@
 'use strict';
 /* exported data */
-const data = {
+let data = {
   view: 'entry-form',
   entries: [],
   editing: null,
@@ -8,9 +8,9 @@ const data = {
 };
 const previousEntriesJSON = localStorage.getItem('javascript-local-storage');
 window.addEventListener('beforeunload', () => {
-  const entriesJSON = JSON.stringify(data.entries);
+  const entriesJSON = JSON.stringify(data);
   localStorage.setItem('javascript-local-storage', entriesJSON);
 });
 if (previousEntriesJSON) {
-  data.entries = JSON.parse(previousEntriesJSON);
+  data = JSON.parse(previousEntriesJSON);
 }

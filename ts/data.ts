@@ -1,6 +1,13 @@
 /* exported data */
 
-const data: any = {
+interface Data {
+  view: string;
+  entries: Entry[];
+  editing: null;
+  nextEntryId: number;
+}
+
+let data: Data = {
   view: 'entry-form',
   entries: [],
   editing: null,
@@ -10,10 +17,10 @@ const data: any = {
 const previousEntriesJSON = localStorage.getItem('javascript-local-storage');
 
 window.addEventListener('beforeunload', () => {
-  const entriesJSON = JSON.stringify(data.entries);
+  const entriesJSON = JSON.stringify(data);
   localStorage.setItem('javascript-local-storage', entriesJSON);
 });
 
 if (previousEntriesJSON) {
-  data.entries = JSON.parse(previousEntriesJSON);
+  data = JSON.parse(previousEntriesJSON);
 }

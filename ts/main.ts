@@ -20,13 +20,20 @@ interface FormElements extends HTMLFormControlsCollection {
   newProperty?: any;
 }
 
+interface Entry {
+  title: string;
+  photoUrl: string;
+  notes: string;
+  entryId: number;
+}
+
 const $entryForm = document.querySelector('#entry-form') as HTMLFormElement;
 if (!$entryForm) throw new Error('the entry-form query failed');
 
 $entryForm.addEventListener('submit', (event: Event): void => {
   event.preventDefault();
   const $formElements = $entryForm.elements as FormElements;
-  const $formData = {
+  const $formData: Entry = {
     title: $formElements.title.value,
     photoUrl: $formElements.photoUrl.value,
     notes: $formElements.notes.value,
