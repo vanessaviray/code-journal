@@ -23,6 +23,12 @@ $entryForm.addEventListener('submit', (event) => {
     entryId: data.nextEntryId,
   };
   data.nextEntryId++;
+  data.entries.push($formData);
+  const $image = document.querySelector('img');
+  if (!$image) throw new Error('the img query failed');
+  $image.src = 'images/placeholder-image-square.jpg';
+  $entryForm.reset();
   console.log($formData);
   console.log(data.nextEntryId);
+  console.log(data.entries);
 });

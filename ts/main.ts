@@ -27,7 +27,7 @@ interface FormElements extends HTMLFormControlsCollection {
 const $entryForm = document.querySelector('#entry-form') as HTMLFormElement;
 if (!$entryForm) throw new Error('the entry-form query failed');
 
-$entryForm.addEventListener('submit', (event: any): void => {
+$entryForm.addEventListener('submit', (event: Event): void => {
   event.preventDefault();
   const $formElements = $entryForm.elements as FormElements;
   const $formData = {
@@ -37,6 +37,12 @@ $entryForm.addEventListener('submit', (event: any): void => {
     entryId: data.nextEntryId,
   };
   data.nextEntryId++;
+  data.entries.push($formData);
+  const $image = document.querySelector('img');
+  if (!$image) throw new Error('the img query failed');
+  $image.src = 'images/placeholder-image-square.jpg';
+  $entryForm.reset();
   console.log($formData);
   console.log(data.nextEntryId);
+  console.log(data.entries);
 });
