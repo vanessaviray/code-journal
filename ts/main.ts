@@ -1,7 +1,5 @@
 // /* global data */
 
-// Set the src of the img element to the value in the photo url input
-
 const $photoUrlElement = document.querySelector('#photo-url-field');
 if (!$photoUrlElement) throw new Error('the photo-url-field query failed');
 
@@ -14,8 +12,6 @@ function getPhoto(event: any): void {
 }
 
 $photoUrlElement.addEventListener('input', getPhoto);
-
-// Add a 'submit' event listener to the form element
 
 interface FormElements extends HTMLFormControlsCollection {
   title: HTMLInputElement;
