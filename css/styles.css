@@ -57,12 +57,7 @@ textarea {
   flex-direction: column;
 }
 
-.title-field {
-  display: flex;
-  flex-direction: column;
-}
-
-.photo-url-field {
+.column-half {
   display: flex;
   flex-direction: column;
 }
