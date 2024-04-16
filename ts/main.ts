@@ -2,11 +2,11 @@
 
 const $photoUrlElement = document.querySelector('#photo-url-field');
 if (!$photoUrlElement) throw new Error('the photo-url-field query failed');
+const $image = document.querySelector('img');
 
-function getPhoto(event: any): void {
-  const eventTarget = event.target;
+function getPhoto(event: Event): void {
+  const eventTarget = event.target as HTMLFormElement;
   const photoUrl = eventTarget.value;
-  const $image = document.querySelector('img');
   if (!$image) throw new Error('the img query failed');
   $image.src = photoUrl;
 }
@@ -34,7 +34,6 @@ $entryForm.addEventListener('submit', (event: Event): void => {
   };
   data.nextEntryId++;
   data.entries.push($formData);
-  const $image = document.querySelector('img');
   if (!$image) throw new Error('the img query failed');
   $image.src = 'images/placeholder-image-square.jpg';
   $entryForm.reset();
