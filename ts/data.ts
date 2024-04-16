@@ -7,8 +7,6 @@ const data: any = {
   nextEntryId: 1,
 };
 
-console.log(data);
-
 const previousEntriesJSON = localStorage.getItem('javascript-local-storage');
 
 window.addEventListener('beforeunload', () => {
