@@ -1,15 +1,19 @@
-#header-title {
+.header-title {
   color: white;
+  position: relative;
+  bottom: 5px;
 }
 
-header > .container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.header-bar {
   background-color: #562b81;
   font-weight: 400;
   font-size: 20px;
   height: 53px;
+}
+
+h1 {
+  font-family: 'Proza Libre', sans-serif;
+  font-weight: 500;
 }
 
 body {
@@ -19,13 +23,12 @@ body {
 }
 
 #img-wrapper {
-  height: 400px;
-  width: 100%;
   margin-bottom: 1.75rem;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 4px;
 }
 
 img {
@@ -33,22 +36,27 @@ img {
 }
 
 input {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
   border-style: solid;
   border-color: #b6b6b6;
   border-radius: 0.3rem;
   border-width: 1px;
-  height: 3rem;
+  height: 40px;
   margin-top: 0.75rem;
   margin-bottom: 1.75rem;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 textarea {
-  border-style: solid;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
   border-color: #b6b6b6;
   border-radius: 0.3rem;
-  border-width: 1px;
-  height: 6rem;
+  height: 149px;
   margin-top: 0.75rem;
+  padding: 8px;
 }
 
 #notes-field-section {
@@ -88,4 +96,18 @@ button {
 button:hover {
   background-color: #875ab4;
   cursor: pointer;
+}
+
+input:focus {
+  outline: 2px solid #562b81;
+}
+
+textarea:focus {
+  outline: 2px solid #562b81;
+}
+
+@media (max-width: 768px) {
+  #img-wrapper {
+    height: 245px;
+  }
 }
