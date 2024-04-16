@@ -14,14 +14,77 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet" />
   </head>
   <body>
     <header>
-      <div class="container"></div>
+      <div class="header-bar">
+        <div class="container">
+          <div class="row">
+            <div class="column-full">
+              <div class="header-title">
+                <p>Code Journal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
     <main class="container">
-      <div data-view="entry-form"></div>
-      <div data-view="entries" class="hidden"></div>
+      <form id="entry-form">
+        <div data-view="entry-form">
+          <div class="row">
+            <div class="column-full">
+              <h1>New Entry</h1>
+            </div>
+          </div>
+          <div class="row" id="img-inputs">
+            <div class="column-half">
+              <img
+                src="images/placeholder-image-square.jpg"
+                alt="image placeholder or image provided" />
+            </div>
+            <div class="column-half">
+              <label for="title-field">Title</label>
+              <input
+                name="title"
+                type="text"
+                class="title-field"
+                id="title-field"
+                required />
+              <label for="photo-url-field">Photo URL</label>
+              <input
+                name="photoUrl"
+                type="text"
+                class="photo-url-field"
+                id="photo-url-field"
+                required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full" id="notes-field-section">
+              <label for="notes-field">Notes</label>
+              <textarea
+                name="notes"
+                class="notes-field"
+                id="notes-field"></textarea>
+              <div id="save-button">
+                <button>SAVE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-view="entries" class="hidden"></div>
+      </form>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>

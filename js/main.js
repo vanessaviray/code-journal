@@ -1,39 +1,21 @@
+'use strict';
 // /* global data */
-
 const $photoUrlElement = document.querySelector('#photo-url-field');
 if (!$photoUrlElement) throw new Error('the photo-url-field query failed');
 const $image = document.querySelector('img');
-
-function getPhoto(event: Event): void {
-  const eventTarget = event.target as HTMLFormElement;
+function getPhoto(event) {
+  const eventTarget = event.target;
   const photoUrl = eventTarget.value;
   if (!$image) throw new Error('the img query failed');
   $image.src = photoUrl;
 }
-
 $photoUrlElement.addEventListener('input', getPhoto);
-
-interface FormElements extends HTMLFormControlsCollection {
-  title: HTMLInputElement;
-  photoUrl: HTMLInputElement;
-  notes: HTMLTextAreaElement;
-  newProperty?: any;
-}
-
-interface Entry {
-  title: string;
-  photoUrl: string;
-  notes: string;
-  entryId: number;
-}
-
-const $entryForm = document.querySelector('#entry-form') as HTMLFormElement;
+const $entryForm = document.querySelector('#entry-form');
 if (!$entryForm) throw new Error('the entry-form query failed');
-
-$entryForm.addEventListener('submit', (event: Event): void => {
+$entryForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  const $formElements = $entryForm.elements as FormElements;
-  const $formData: Entry = {
+  const $formElements = $entryForm.elements;
+  const $formData = {
     title: $formElements.title.value,
     photoUrl: $formElements.photoUrl.value,
     notes: $formElements.notes.value,
