@@ -32,60 +32,67 @@
     </header>
 
     <main class="container">
-      <div data-view="entry-form">
-        <div class="row">
-          <div class="column-full">
-            <h1>New Entry</h1>
-          </div>
-        </div>
-
-        <div class="row" id="img-inputs">
-          <div class="column-half">
-            <div id="img-wrapper">
-              <img src="images/placeholder-image-square.jpg" />
+      <form id="entry-form">
+        <div data-view="entry-form">
+          <div class="row">
+            <div class="column-full">
+              <h1>New Entry</h1>
             </div>
           </div>
-          <div class="column-half">
-            <div class="title-and-photo-fields">
-              <div class="title-field">
-                <label for="title-field">Title</label>
-                <input
-                  type="text"
-                  class="title-field"
-                  id="title-field"
-                  required />
-              </div>
-              <div class="photo-url-field">
-                <label for="photo-url-field">Photo URL</label>
-                <input
-                  type="text"
-                  class="photo-url-field"
-                  id="photo-url-field"
-                  required />
+
+          <div class="row" id="img-inputs">
+            <div class="column-half">
+              <div id="img-wrapper">
+                <img src="images/placeholder-image-square.jpg" />
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="column-full" id="notes-field-section">
-            <label for="notes-field">Notes</label>
-            <textarea class="notes-field" id="notes-field"></textarea>
-            <div id="save-button">
-              <button>SAVE</button>
+            <div class="column-half">
+              <div class="title-and-photo-fields">
+                <div class="title-field">
+                  <label for="title-field">Title</label>
+                  <input
+                    name="title"
+                    type="text"
+                    class="title-field"
+                    id="title-field"
+                    required />
+                </div>
+                <div class="photo-url-field">
+                  <label for="photo-url-field">Photo URL</label>
+                  <input
+                    name="photoUrl"
+                    type="text"
+                    class="photo-url-field"
+                    id="photo-url-field"
+                    required />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- <div class="row">
-          <div class="column-full">
-            <div class="button-wrapper">
-              <button>SAVE</button>
+          <div class="row">
+            <div class="column-full" id="notes-field-section">
+              <label for="notes-field">Notes</label>
+              <textarea
+                name="notes"
+                class="notes-field"
+                id="notes-field"></textarea>
+              <div id="save-button">
+                <button>SAVE</button>
+              </div>
             </div>
           </div>
-        </div> -->
-      </div>
-      <div data-view="entries" class="hidden"></div>
+
+          <!-- <div class="row">
+            <div class="column-full">
+              <div class="button-wrapper">
+                <button>SAVE</button>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div data-view="entries" class="hidden"></div>
+      </form>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
