@@ -22,6 +22,7 @@ $entryForm.addEventListener('submit', (event) => {
     notes: $formElements.notes.value,
     entryId: data.nextEntryId,
   };
+  data.nextEntryId++;
   console.log($formData);
   console.log(data.nextEntryId);
 });
