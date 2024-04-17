@@ -54,7 +54,6 @@ function renderEntry(entry) {
   $columnHalfDiv2.appendChild($pElement);
   const notesValue = entry.notes;
   $pElement.textContent = notesValue;
-  console.log('titleValue: ', titleValue);
   return $liElement;
 }
 // add event listener which listens for DOMContentLoaded event

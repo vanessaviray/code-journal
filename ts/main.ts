@@ -81,8 +81,6 @@ function renderEntry(entry: Entry): HTMLElement {
   const notesValue = entry.notes;
   $pElement.textContent = notesValue;
 
-  console.log('titleValue: ', titleValue);
-
   return $liElement;
 }
 
