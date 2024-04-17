@@ -44,7 +44,7 @@ $form.addEventListener('submit', (event: Event): void => {
   if (!$image) throw new Error('the img query failed');
   $image.src = 'images/placeholder-image-square.jpg';
   $form.reset();
-  $ulElement.prepend(renderEntry(data.entries[0]));
+  $ulElement.prepend(renderEntry($formData));
   viewSwap('entries');
   toggleNoEntries();
 });
