@@ -81,4 +81,14 @@ function renderEntry(entry: Entry): HTMLElement {
   return $liElement;
 }
 
-console.log(renderEntry(data.entries[0]));
+// add event listener which listens for DOMContentLoaded event
+
+const $ulElement = document.querySelector('ul') as HTMLElement;
+if (!$ulElement) throw new Error(`the 'ul' query failed`);
+
+document.addEventListener('DOMContentLoaded', () => {
+  for (let i = 0; i < data.entries.length; i++) {
+    const newLi = renderEntry(data.entries[i]);
+    $ulElement.appendChild(newLi);
+  }
+});
