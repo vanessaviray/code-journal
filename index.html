@@ -31,8 +31,9 @@
         <div class="container">
           <div class="row">
             <div class="column-full">
-              <div class="header-title">
+              <div class="navbar">
                 <p>Code Journal</p>
+                <a>Entries</a>
               </div>
             </div>
           </div>
@@ -40,8 +41,8 @@
       </div>
     </header>
     <main class="container">
-      <form id="entry-form">
-        <div data-view="entry-form">
+      <form id="form">
+        <div data-view="entry-form" id="entry-form">
           <div class="row">
             <div class="column-full">
               <h1>New Entry</h1>
@@ -83,7 +84,7 @@
             </div>
           </div>
         </div>
-        <div data-view="entries">
+        <div data-view="entries" class="hidden" id="entries">
           <div class="row">
             <div class="header-title-button">
               <h1>Entries</h1>

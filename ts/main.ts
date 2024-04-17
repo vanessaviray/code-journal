@@ -27,10 +27,10 @@ interface Entry {
   entryId: number;
 }
 
-const $entryForm = document.querySelector('#entry-form') as HTMLFormElement;
-if (!$entryForm) throw new Error('the entry-form query failed');
+const $form = document.querySelector('#form') as HTMLFormElement;
+if (!$form) throw new Error('the form query failed');
 
-const $formElements = $entryForm.elements as FormElements;
+const $formElements = $form.elements as FormElements;
 const $formData: Entry = {
   title: $formElements.title.value,
   photoUrl: $formElements.photoUrl.value,
@@ -38,13 +38,13 @@ const $formData: Entry = {
   entryId: data.nextEntryId,
 };
 
-$entryForm.addEventListener('submit', (event: Event): void => {
+$form.addEventListener('submit', (event: Event): void => {
   event.preventDefault();
   data.nextEntryId++;
   data.entries.unshift($formData);
   if (!$image) throw new Error('the img query failed');
   $image.src = 'images/placeholder-image-square.jpg';
-  $entryForm.reset();
+  $form.reset();
 });
 
 // generate and return a DOM tree for the li element
@@ -115,4 +115,17 @@ function viewSwap(view: string): void {
   data.view = valueOfView;
 }
 
-viewSwap('entries');
+// Added an event handler function for the 'entries' anchor in the navbar
+
+const $aElement = document.querySelector('a');
+const $entriesDiv = document.querySelector('#entries');
+const $entryForm = document.querySelector('#entry-form');
+if (!$aElement) throw new Error(`the 'a' query failed`);
+if (!$entriesDiv) throw new Error(`the '#entries' query failed`);
+if (!$entryForm) throw new Error(`the '#entry-form' query failed`);
+
+$aElement.addEventListener('click', () => {
+  viewSwap('entries');
+  $entriesDiv.className = 'show';
+  $entryForm.className = 'hidden';
+});

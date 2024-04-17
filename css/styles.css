@@ -1,14 +1,18 @@
-.header-title {
+.navbar {
+  display: flex;
+  flex-direction: row;
   color: white;
-  position: relative;
-  bottom: 5px;
+}
+
+.navbar > a {
+  padding: 22px;
+  font-size: 18px;
 }
 
 .header-bar {
   background-color: #562b81;
   font-weight: 400;
   font-size: 20px;
-  height: 53px;
 }
 
 h1 {
@@ -112,4 +116,8 @@ input:focus {
 
 textarea:focus {
   outline: 2px solid #562b81;
+}
+
+a:hover {
+  cursor: pointer;
 }
