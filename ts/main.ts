@@ -107,3 +107,12 @@ function toggleNoEntries(): void {
 }
 
 toggleNoEntries();
+
+// created viewSwap function to show the view whose name was provided as an argument
+
+function viewSwap(view: string): void {
+  const valueOfView = view;
+  data.view = valueOfView;
+}
+
+viewSwap('entries');

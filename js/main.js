@@ -61,3 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
     $ulElement.appendChild(newLi);
   }
 });
+// toggleNoEntries function to toggle the no entries text to show or hide when the function is called.
+const $noEntriesElement = document.getElementById('no-entries');
+function toggleNoEntries() {
+  if (!$noEntriesElement) throw new Error(`the 'no-entries' query failed`);
+  if ($noEntriesElement.className === 'show') {
+    $noEntriesElement.className = 'hidden';
+  } else {
+    $noEntriesElement.className = 'show';
+  }
+}
+toggleNoEntries();
+// created viewSwap function to show the view whose name was provided as an argument
+function viewSwap(view) {
+  const valueOfView = view;
+  data.view = valueOfView;
+}
+viewSwap('entries');
