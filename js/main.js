@@ -63,9 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < data.entries.length; i++) {
     const newLi = renderEntry(data.entries[i]);
     $ulElement.appendChild(newLi);
-    viewSwap(data.view);
-    toggleNoEntries();
   }
+  viewSwap(data.view);
+  toggleNoEntries();
 });
 // toggleNoEntries function to toggle the no entries text to show or hide when the function is called.
 const $noEntriesElement = document.getElementById('no-entries');
