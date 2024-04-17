@@ -28,9 +28,7 @@ $form.addEventListener('submit', (event) => {
   $form.reset();
   $ulElement.prepend(renderEntry(data.entries[0]));
   viewSwap('entries');
-  if (data.entries.length > 0) {
-    toggleNoEntries();
-  }
+  toggleNoEntries();
 });
 // generate and return a DOM tree for the li element
 function renderEntry(entry) {
@@ -46,6 +44,7 @@ function renderEntry(entry) {
   $rowDiv.appendChild($columnHalfDiv2);
   const $imgElement = document.createElement('img');
   $imgElement.setAttribute('src', entry.photoUrl);
+  $imgElement.setAttribute('alt', 'journal entry subject');
   $columnHalfDiv.appendChild($imgElement);
   const $h2Element = document.createElement('h2');
   $columnHalfDiv2.appendChild($h2Element);
@@ -65,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < data.entries.length; i++) {
     const newLi = renderEntry(data.entries[i]);
     $ulElement.appendChild(newLi);
+    viewSwap(data.view);
+    toggleNoEntries();
   }
 });
 // toggleNoEntries function to toggle the no entries text to show or hide when the function is called.

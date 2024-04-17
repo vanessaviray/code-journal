@@ -46,9 +46,7 @@ $form.addEventListener('submit', (event: Event): void => {
   $form.reset();
   $ulElement.prepend(renderEntry(data.entries[0]));
   viewSwap('entries');
-  if (data.entries.length > 0) {
-    toggleNoEntries();
-  }
+  toggleNoEntries();
 });
 
 // generate and return a DOM tree for the li element
@@ -70,6 +68,7 @@ function renderEntry(entry: Entry): HTMLElement {
 
   const $imgElement = document.createElement('img');
   $imgElement.setAttribute('src', entry.photoUrl);
+  $imgElement.setAttribute('alt', 'journal entry subject');
   $columnHalfDiv.appendChild($imgElement);
 
   const $h2Element = document.createElement('h2');
@@ -96,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < data.entries.length; i++) {
     const newLi = renderEntry(data.entries[i]);
     $ulElement.appendChild(newLi);
+    viewSwap(data.view);
+    toggleNoEntries();
   }
 });
 
