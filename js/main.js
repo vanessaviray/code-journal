@@ -89,3 +89,11 @@ $aElement.addEventListener('click', () => {
   $entriesDiv.className = 'show';
   $entryForm.className = 'hidden';
 });
+// 'new' button (anchor tag) will display the entry-form
+const $newButtonElement = document.querySelector('#new-button');
+if (!$newButtonElement) throw new Error(`the 'new-button' query failed`);
+$newButtonElement.addEventListener('click', () => {
+  viewSwap('entry-form');
+  $entriesDiv.className = 'hidden';
+  $entryForm.className = 'show';
+});
