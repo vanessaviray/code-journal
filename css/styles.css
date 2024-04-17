@@ -81,6 +81,26 @@ button {
   margin-bottom: 1.5rem;
 }
 
+.header-title-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#no-entries {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  width: 100%;
+}
+
 button:hover {
   background-color: #875ab4;
   cursor: pointer;
@@ -92,8 +112,4 @@ input:focus {
 
 textarea:focus {
   outline: 2px solid #562b81;
-}
-
-ul {
-  list-style-type: none;
 }

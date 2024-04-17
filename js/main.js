@@ -52,7 +52,6 @@ function renderEntry(entry) {
   $pElement.textContent = notesValue;
   return $liElement;
 }
-console.log(renderEntry(data.entries[1]));
 // add event listener which listens for DOMContentLoaded event
 const $ulElement = document.querySelector('ul');
 if (!$ulElement) throw new Error(`the 'ul' query failed`);
@@ -62,4 +61,3 @@ document.addEventListener('DOMContentLoaded', () => {
     $ulElement.appendChild(newLi);
   }
 });
-console.log($ulElement);
