@@ -44,6 +44,11 @@ $form.addEventListener('submit', (event: Event): void => {
   if (!$image) throw new Error('the img query failed');
   $image.src = 'images/placeholder-image-square.jpg';
   $form.reset();
+  $ulElement.prepend(renderEntry(data.entries[0]));
+  viewSwap('entries');
+  if (data.entries.length > 0) {
+    toggleNoEntries();
+  }
 });
 
 // generate and return a DOM tree for the li element
@@ -100,14 +105,12 @@ const $noEntriesElement = document.getElementById('no-entries');
 
 function toggleNoEntries(): void {
   if (!$noEntriesElement) throw new Error(`the 'no-entries' query failed`);
-  if ($noEntriesElement.className === 'show') {
+  if (data.entries.length > 0) {
     $noEntriesElement.className = 'hidden';
   } else {
     $noEntriesElement.className = 'show';
   }
 }
-
-toggleNoEntries();
 
 // created viewSwap function to show the view whose name was provided as an argument
 
