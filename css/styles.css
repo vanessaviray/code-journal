@@ -118,6 +118,10 @@ li {
   width: 100%;
 }
 
+.fa-pencil {
+  float: right;
+}
+
 button:hover {
   background-color: #875ab4;
   cursor: pointer;

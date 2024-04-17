@@ -50,6 +50,9 @@ function renderEntry(entry) {
   $columnHalfDiv2.appendChild($h2Element);
   const titleValue = entry.title;
   $h2Element.textContent = titleValue;
+  const $pencilIcon = document.createElement('i');
+  $pencilIcon.setAttribute('class', 'fa-solid fa-pencil');
+  $h2Element.appendChild($pencilIcon);
   const $pElement = document.createElement('p');
   $columnHalfDiv2.appendChild($pElement);
   const notesValue = entry.notes;
