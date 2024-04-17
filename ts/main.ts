@@ -30,16 +30,15 @@ interface Entry {
 const $form = document.querySelector('#form') as HTMLFormElement;
 if (!$form) throw new Error('the form query failed');
 
-const $formElements = $form.elements as FormElements;
-const $formData: Entry = {
-  title: $formElements.title.value,
-  photoUrl: $formElements.photoUrl.value,
-  notes: $formElements.notes.value,
-  entryId: data.nextEntryId,
-};
-
 $form.addEventListener('submit', (event: Event): void => {
   event.preventDefault();
+  const $formElements = $form.elements as FormElements;
+  const $formData: Entry = {
+    title: $formElements.title.value,
+    photoUrl: $formElements.photoUrl.value,
+    notes: $formElements.notes.value,
+    entryId: data.nextEntryId,
+  };
   data.nextEntryId++;
   data.entries.unshift($formData);
   if (!$image) throw new Error('the img query failed');
@@ -78,6 +77,8 @@ function renderEntry(entry: Entry): HTMLElement {
   const notesValue = entry.notes;
   $pElement.textContent = notesValue;
 
+  console.log('titleValue: ', titleValue);
+
   return $liElement;
 }
 
@@ -110,33 +111,37 @@ toggleNoEntries();
 
 // created viewSwap function to show the view whose name was provided as an argument
 
+const $entriesDiv = document.querySelector('#entries');
+const $entryForm = document.querySelector('#entry-form');
+
 function viewSwap(view: string): void {
   const valueOfView = view;
   data.view = valueOfView;
+
+  if (!$entriesDiv) throw new Error(`the '#entries' query failed`);
+  if (!$entryForm) throw new Error(`the '#entry-form' query failed`);
+
+  if (view === 'entries') {
+    $entriesDiv.className = 'show';
+    $entryForm.className = 'hidden';
+  } else if (view === 'entry-form') {
+    $entriesDiv.className = 'hidden';
+    $entryForm.className = 'show';
+  }
 }
 
 // Added an event handler function for the 'entries' anchor in the navbar
 
 const $aElement = document.querySelector('a');
-const $entriesDiv = document.querySelector('#entries');
-const $entryForm = document.querySelector('#entry-form');
 if (!$aElement) throw new Error(`the 'a' query failed`);
-if (!$entriesDiv) throw new Error(`the '#entries' query failed`);
-if (!$entryForm) throw new Error(`the '#entry-form' query failed`);
 
 $aElement.addEventListener('click', () => {
   viewSwap('entries');
-  $entriesDiv.className = 'show';
-  $entryForm.className = 'hidden';
 });
 
-// 'new' button (anchor tag) will display the entry-form
-
 const $newButtonElement = document.querySelector('#new-button');
-if (!$newButtonElement) throw new Error(`the 'new-button' query failed`);
+if (!$newButtonElement) throw new Error(`the '#new-button' query failed`);
 
 $newButtonElement.addEventListener('click', () => {
   viewSwap('entry-form');
-  $entriesDiv.className = 'hidden';
-  $entryForm.className = 'show';
 });
