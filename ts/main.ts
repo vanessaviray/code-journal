@@ -53,6 +53,7 @@ $form.addEventListener('submit', (event: Event): void => {
 
 function renderEntry(entry: Entry): HTMLElement {
   const $liElement = document.createElement('li');
+  $liElement.setAttribute('data-entry-id', entry.entryId.toString());
 
   const $rowDiv = document.createElement('div');
   $rowDiv.setAttribute('class', 'row');

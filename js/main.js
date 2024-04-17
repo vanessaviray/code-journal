@@ -33,6 +33,7 @@ $form.addEventListener('submit', (event) => {
 // generate and return a DOM tree for the li element
 function renderEntry(entry) {
   const $liElement = document.createElement('li');
+  $liElement.setAttribute('data-entry-id', entry.entryId.toString());
   const $rowDiv = document.createElement('div');
   $rowDiv.setAttribute('class', 'row');
   $liElement.appendChild($rowDiv);
