@@ -11,7 +11,15 @@ function getPhoto(event) {
 }
 $photoUrlElement.addEventListener('input', getPhoto);
 const $form = document.querySelector('#form');
+const $liElements = document.getElementsByTagName('li');
+const $titleElement = document.querySelector('#title-field');
+const $notesElement = document.querySelector('#notes-field');
+const $entryTitle = document.querySelector('#entryTitle');
 if (!$form) throw new Error('the form query failed');
+if (!$liElements) throw new Error(`the 'li' query failed`);
+if (!$titleElement) throw new Error(`the '#title-field' query failed`);
+if (!$notesElement) throw new Error(`the '#notes-field' query failed`);
+if (!$entryTitle) throw new Error(`the '#entriesTitle' query failed`);
 $form.addEventListener('submit', (event) => {
   event.preventDefault();
   const $formElements = $form.elements;
@@ -21,18 +29,41 @@ $form.addEventListener('submit', (event) => {
     notes: $formElements.notes.value,
     entryId: data.nextEntryId,
   };
-  data.nextEntryId++;
-  data.entries.unshift($formData);
+  if (data.editing === null) {
+    data.nextEntryId++;
+    data.entries.unshift($formData);
+    $ulElement.prepend(renderEntry($formData));
+  } else {
+    $formData.entryId = data.editing.entryId;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === $formData.entryId) {
+        data.entries[i] = $formData;
+        for (let i = 0; i < $liElements.length; i++) {
+          const dataEntryId = $liElements[i].getAttribute('data-entry-id');
+          if (dataEntryId === $formData.entryId.toString()) {
+            const $newLi = renderEntry($formData);
+            $liElements[i].replaceWith($newLi);
+          }
+        }
+      }
+    }
+    if (!$entryTitle) throw new Error(`the '#entriesTitle' query failed`);
+    $entryTitle.textContent = 'New Entry';
+    data.editing = null;
+    $titleElement.setAttribute('value', '');
+    $photoUrlElement.setAttribute('value', '');
+    $notesElement.textContent = '';
+  }
   if (!$image) throw new Error('the img query failed');
   $image.src = 'images/placeholder-image-square.jpg';
   $form.reset();
-  $ulElement.prepend(renderEntry($formData));
   viewSwap('entries');
   toggleNoEntries();
 });
 // generate and return a DOM tree for the li element
 function renderEntry(entry) {
   const $liElement = document.createElement('li');
+  $liElement.setAttribute('data-entry-id', entry.entryId.toString());
   const $rowDiv = document.createElement('div');
   $rowDiv.setAttribute('class', 'row');
   $liElement.appendChild($rowDiv);
@@ -50,6 +81,9 @@ function renderEntry(entry) {
   $columnHalfDiv2.appendChild($h2Element);
   const titleValue = entry.title;
   $h2Element.textContent = titleValue;
+  const $pencilIcon = document.createElement('i');
+  $pencilIcon.setAttribute('class', 'fa-solid fa-pencil');
+  $h2Element.appendChild($pencilIcon);
   const $pElement = document.createElement('p');
   $columnHalfDiv2.appendChild($pElement);
   const notesValue = entry.notes;
@@ -103,4 +137,27 @@ const $newButtonElement = document.querySelector('#new-button');
 if (!$newButtonElement) throw new Error(`the '#new-button' query failed`);
 $newButtonElement.addEventListener('click', () => {
   viewSwap('entry-form');
+});
+// added an event listener to the ul (pencil icon)
+$ulElement.addEventListener('click', (event) => {
+  viewSwap('entry-form');
+  const target = event.target;
+  if (target.tagName === 'I') {
+    const $listItem = target.closest('li');
+    if (!$listItem) throw new Error(`the 'li' query failed`);
+    const dataEntryValue = $listItem.getAttribute('data-entry-id');
+    for (let i = 0; i < data.entries.length; i++) {
+      const entryId = data.entries[i].entryId;
+      const entryIdString = entryId.toString();
+      if (entryIdString === dataEntryValue) {
+        data.editing = data.entries[i];
+        $titleElement.setAttribute('value', data.entries[i].title);
+        $photoUrlElement.setAttribute('value', data.entries[i].photoUrl);
+        $notesElement.value = data.entries[i].notes;
+        if (!$image) throw new Error('the img query failed');
+        $image.src = data.entries[i].photoUrl;
+        $entryTitle.textContent = 'Edit Entry';
+      }
+    }
+  }
 });
