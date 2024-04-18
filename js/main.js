@@ -108,3 +108,32 @@ if (!$newButtonElement) throw new Error(`the '#new-button' query failed`);
 $newButtonElement.addEventListener('click', () => {
   viewSwap('entry-form');
 });
+// added an event listener to the ul (pencil icon)
+const $titleElement = document.querySelector('#title-field');
+const $notesElement = document.querySelector('#notes-field');
+const $entryTitle = document.querySelector('#entryTitle');
+if (!$titleElement) throw new Error(`the '#title-field' query failed`);
+if (!$notesElement) throw new Error(`the '#notes-field' query failed`);
+if (!$entryTitle) throw new Error(`the '#entriesTitle' query failed`);
+$ulElement.addEventListener('click', (event) => {
+  viewSwap('entry-form');
+  const target = event.target;
+  if (target.tagName === 'I') {
+    const $listItem = target.closest('li');
+    if (!$listItem) throw new Error(`the 'li' query failed`);
+    const dataEntryValue = $listItem.getAttribute('data-entry-id');
+    for (let i = 0; i < data.entries.length; i++) {
+      const entryId = data.entries[i].entryId;
+      const entryIdString = entryId.toString();
+      if (entryIdString === dataEntryValue) {
+        data.editing = data.entries[i];
+        $titleElement.setAttribute('value', data.entries[i].title);
+        $photoUrlElement.setAttribute('value', data.entries[i].photoUrl);
+        $notesElement.textContent = data.entries[i].notes;
+        if (!$image) throw new Error('the img query failed');
+        $image.src = data.entries[i].photoUrl;
+        $entryTitle.textContent = 'Edit Entries';
+      }
+    }
+  }
+});
