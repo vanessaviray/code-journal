@@ -30,7 +30,9 @@ interface Entry {
 const $form = document.querySelector('#form') as HTMLFormElement;
 const $liElements = document.getElementsByTagName('li');
 const $titleElement = document.querySelector('#title-field');
-const $notesElement = document.querySelector('#notes-field');
+const $notesElement = document.querySelector(
+  '#notes-field'
+) as HTMLTextAreaElement;
 const $entryTitle = document.querySelector('#entryTitle');
 
 if (!$form) throw new Error('the form query failed');
@@ -58,9 +60,7 @@ $form.addEventListener('submit', (event: Event): void => {
 
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === $formData.entryId) {
-        data.entries[i].title = $formElements.title.value;
-        data.entries[i].photoUrl = $formElements.photoUrl.value;
-        data.entries[i].notes = $formElements.notes.value;
+        data.entries[i] = $formData;
 
         for (let i = 0; i < $liElements.length; i++) {
           const dataEntryId = $liElements[i].getAttribute('data-entry-id');
@@ -211,7 +211,7 @@ $ulElement.addEventListener('click', (event) => {
 
         $titleElement.setAttribute('value', data.entries[i].title);
         $photoUrlElement.setAttribute('value', data.entries[i].photoUrl);
-        $notesElement.textContent = data.entries[i].notes;
+        $notesElement.value = data.entries[i].notes;
 
         if (!$image) throw new Error('the img query failed');
         $image.src = data.entries[i].photoUrl;

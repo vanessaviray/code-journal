@@ -37,9 +37,7 @@ $form.addEventListener('submit', (event) => {
     $formData.entryId = data.editing.entryId;
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === $formData.entryId) {
-        data.entries[i].title = $formElements.title.value;
-        data.entries[i].photoUrl = $formElements.photoUrl.value;
-        data.entries[i].notes = $formElements.notes.value;
+        data.entries[i] = $formData;
         for (let i = 0; i < $liElements.length; i++) {
           const dataEntryId = $liElements[i].getAttribute('data-entry-id');
           if (dataEntryId === $formData.entryId.toString()) {
@@ -155,7 +153,7 @@ $ulElement.addEventListener('click', (event) => {
         data.editing = data.entries[i];
         $titleElement.setAttribute('value', data.entries[i].title);
         $photoUrlElement.setAttribute('value', data.entries[i].photoUrl);
-        $notesElement.textContent = data.entries[i].notes;
+        $notesElement.value = data.entries[i].notes;
         if (!$image) throw new Error('the img query failed');
         $image.src = data.entries[i].photoUrl;
         $entryTitle.textContent = 'Edit Entry';
