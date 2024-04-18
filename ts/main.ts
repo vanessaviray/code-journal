@@ -34,12 +34,15 @@ const $notesElement = document.querySelector(
   '#notes-field'
 ) as HTMLTextAreaElement;
 const $entryTitle = document.querySelector('#entryTitle');
+const $deleteEntryButton = document.querySelector('#delete-entry-button');
 
 if (!$form) throw new Error('the form query failed');
 if (!$liElements) throw new Error(`the 'li' query failed`);
 if (!$titleElement) throw new Error(`the '#title-field' query failed`);
 if (!$notesElement) throw new Error(`the '#notes-field' query failed`);
 if (!$entryTitle) throw new Error(`the '#entriesTitle' query failed`);
+if (!$deleteEntryButton)
+  throw new Error(`the '#delete-entry-button' query failed`);
 
 $form.addEventListener('submit', (event: Event): void => {
   event.preventDefault();
@@ -86,6 +89,7 @@ $form.addEventListener('submit', (event: Event): void => {
   $form.reset();
   viewSwap('entries');
   toggleNoEntries();
+  $deleteEntryButton.className = 'hide';
 });
 
 // generate and return a DOM tree for the li element
@@ -217,6 +221,7 @@ $ulElement.addEventListener('click', (event) => {
         $image.src = data.entries[i].photoUrl;
 
         $entryTitle.textContent = 'Edit Entry';
+        $deleteEntryButton.removeAttribute('class');
       }
     }
   }

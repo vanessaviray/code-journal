@@ -15,11 +15,14 @@ const $liElements = document.getElementsByTagName('li');
 const $titleElement = document.querySelector('#title-field');
 const $notesElement = document.querySelector('#notes-field');
 const $entryTitle = document.querySelector('#entryTitle');
+const $deleteEntryButton = document.querySelector('#delete-entry-button');
 if (!$form) throw new Error('the form query failed');
 if (!$liElements) throw new Error(`the 'li' query failed`);
 if (!$titleElement) throw new Error(`the '#title-field' query failed`);
 if (!$notesElement) throw new Error(`the '#notes-field' query failed`);
 if (!$entryTitle) throw new Error(`the '#entriesTitle' query failed`);
+if (!$deleteEntryButton)
+  throw new Error(`the '#delete-entry-button' query failed`);
 $form.addEventListener('submit', (event) => {
   event.preventDefault();
   const $formElements = $form.elements;
@@ -59,6 +62,7 @@ $form.addEventListener('submit', (event) => {
   $form.reset();
   viewSwap('entries');
   toggleNoEntries();
+  $deleteEntryButton.className = 'hide';
 });
 // generate and return a DOM tree for the li element
 function renderEntry(entry) {
@@ -157,6 +161,7 @@ $ulElement.addEventListener('click', (event) => {
         if (!$image) throw new Error('the img query failed');
         $image.src = data.entries[i].photoUrl;
         $entryTitle.textContent = 'Edit Entry';
+        $deleteEntryButton.removeAttribute('class');
       }
     }
   }

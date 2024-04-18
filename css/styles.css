@@ -66,13 +66,13 @@ textarea {
   flex-direction: column;
 }
 
-#save-button {
+#delete-and-save-button {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
-button {
+#save-button {
   font-size: 16px;
   background-color: #562b81;
   border-style: none;
@@ -83,6 +83,16 @@ button {
   padding-right: 16px;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+#delete-entry-button {
+  border-style: none;
+  color: red;
+  text-decoration: underline;
+}
+
+.hide {
+  visibility: hidden;
 }
 
 #new-button {
@@ -96,6 +106,10 @@ button {
   padding-right: 16px;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+i {
+  color: #562b81;
 }
 
 .header-title-button {
@@ -122,11 +136,6 @@ li {
   float: right;
 }
 
-button:hover {
-  background-color: #875ab4;
-  cursor: pointer;
-}
-
 input:focus {
   outline: 2px solid #562b81;
 }
@@ -135,6 +144,13 @@ textarea:focus {
   outline: 2px solid #562b81;
 }
 
-a:hover {
+a:hover,
+#save-button:hover {
+  background-color: #875ab4;
+  cursor: pointer;
+}
+
+i:hover,
+#delete-entry-button:hover {
   cursor: pointer;
 }
