@@ -1,13 +1,20 @@
 'use strict';
 // /* global data */
 const $photoUrlElement = document.querySelector('#photo-url-field');
-if (!$photoUrlElement) throw new Error('the photo-url-field query failed');
 const $image = document.querySelector('img');
+if (!$photoUrlElement) throw new Error('the photo-url-field query failed');
+// CHANGE IMAGE BEING DISPLAYED (EDIT ENTRY VIEW)
 function getPhoto(event) {
   const eventTarget = event.target;
   const photoUrl = eventTarget.value;
   if (!$image) throw new Error('the img query failed');
-  $image.src = photoUrl;
+  if (photoUrl === '') {
+    $image.src = 'images/placeholder-image-square.jpg';
+    $image.alt = 'placeholder image';
+  } else {
+    $image.src = photoUrl;
+    $image.alt = 'image provided';
+  }
 }
 $photoUrlElement.addEventListener('input', getPhoto);
 const $form = document.querySelector('#form');
@@ -62,9 +69,9 @@ $form.addEventListener('submit', (event) => {
   $form.reset();
   viewSwap('entries');
   toggleNoEntries();
-  $deleteEntryButton.className = 'hide';
+  deleteEntryButtonView();
 });
-// generate and return a DOM tree for the li element
+// GENERATE AND RETURN A DOM TREE FOR THE LI ELEMENT
 function renderEntry(entry) {
   const $liElement = document.createElement('li');
   $liElement.setAttribute('data-entry-id', entry.entryId.toString());
@@ -94,7 +101,7 @@ function renderEntry(entry) {
   $pElement.textContent = notesValue;
   return $liElement;
 }
-// add event listener which listens for DOMContentLoaded event
+// ADD EVENT LISTENER TO UNORDERED LIST ELEMENT
 const $ulElement = document.querySelector('ul');
 if (!$ulElement) throw new Error(`the 'ul' query failed`);
 document.addEventListener('DOMContentLoaded', () => {
@@ -105,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   viewSwap(data.view);
   toggleNoEntries();
 });
-// toggleNoEntries function to toggle the no entries text to show or hide when the function is called.
+// CREATE FUNCTION TO TOGGLE THE NO ENTRIES TEXT TO SHOW OR HIDE
 const $noEntriesElement = document.getElementById('no-entries');
 function toggleNoEntries() {
   if (!$noEntriesElement) throw new Error(`the 'no-entries' query failed`);
@@ -115,7 +122,7 @@ function toggleNoEntries() {
     $noEntriesElement.className = 'show';
   }
 }
-// created viewSwap function to show the view whose name was provided as an argument
+// CREATE FUNCTION TO SHOW VIEW WHOSE NAME WAS PROVIDED IN THE ARGUMENT
 const $entriesDiv = document.querySelector('#entries');
 const $entryForm = document.querySelector('#entry-form');
 function viewSwap(view) {
@@ -131,18 +138,26 @@ function viewSwap(view) {
     $entryForm.className = 'show';
   }
 }
-// Added an event handler function for the 'entries' anchor in the navbar
+// ADD EVENT LISTENER FOR THE THE 'ENTRIES' ANCHOR IN THE NAVBAR
 const $aElement = document.querySelector('a');
 if (!$aElement) throw new Error(`the 'a' query failed`);
 $aElement.addEventListener('click', () => {
+  data.editing = null;
+  deleteEntryButtonView();
   viewSwap('entries');
+  $entryTitle.textContent = 'New Entry';
+  $titleElement.setAttribute('value', '');
+  $photoUrlElement.setAttribute('value', '');
+  $notesElement.value = '';
+  if (!$image) throw new Error('the img query failed');
+  $image.src = 'images/placeholder-image-square.jpg';
 });
 const $newButtonElement = document.querySelector('#new-button');
 if (!$newButtonElement) throw new Error(`the '#new-button' query failed`);
 $newButtonElement.addEventListener('click', () => {
   viewSwap('entry-form');
 });
-// added an event listener to the ul (pencil icon)
+// ADD EVENT LISTENER TO THE UNORDERED LIST WHEN THE PENCIL ICON IS CLICKED
 $ulElement.addEventListener('click', (event) => {
   viewSwap('entry-form');
   const target = event.target;
@@ -161,8 +176,49 @@ $ulElement.addEventListener('click', (event) => {
         if (!$image) throw new Error('the img query failed');
         $image.src = data.entries[i].photoUrl;
         $entryTitle.textContent = 'Edit Entry';
-        $deleteEntryButton.removeAttribute('class');
+        deleteEntryButtonView();
       }
     }
   }
 });
+// ADD MODAL TO THE DELETE ENTRY BUTTON
+const $confirmModal = document.querySelector('.confirm-modal');
+const $cancelModal = document.querySelector('.cancel-modal');
+const $dialog = document.querySelector('dialog');
+if (!$confirmModal) throw new Error('The .confirm-modal query failed');
+if (!$cancelModal) throw new Error('The .dismiss-modal query failed');
+if (!$dialog) throw new Error('The dialog query failed');
+$deleteEntryButton.addEventListener('click', (event) => {
+  $dialog.showModal();
+  event.preventDefault();
+});
+$cancelModal.addEventListener('click', () => {
+  $dialog.close();
+});
+$confirmModal.addEventListener('click', () => {
+  $dialog.close();
+  viewSwap('entries');
+  toggleNoEntries();
+  if (data.editing !== null) {
+    const dataEditingId = data.editing.entryId;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (dataEditingId === data.entries[i].entryId) {
+        data.entries.splice(i, 1);
+      }
+    }
+    for (let i = 0; i < $liElements.length; i++) {
+      const liDataEntryId = $liElements[i].getAttribute('data-entry-id');
+      if (liDataEntryId === dataEditingId.toString()) {
+        $liElements[i].remove();
+      }
+    }
+  }
+});
+// CREATE FUNCTION TO SHOW WHEN THE DELETE ENTRY BUTTON SHOULD BE DISPLAYED
+function deleteEntryButtonView() {
+  if (data.editing !== null) {
+    $deleteEntryButton.removeAttribute('class');
+  } else {
+    $deleteEntryButton.className = 'hide';
+  }
+}
