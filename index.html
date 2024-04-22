@@ -52,7 +52,7 @@
             <div class="column-half">
               <img
                 src="images/placeholder-image-square.jpg"
-                alt="image placeholder or image provided" />
+                alt="image placeholder" />
             </div>
             <div class="column-half">
               <label for="title-field">Title</label>
@@ -78,8 +78,18 @@
                 name="notes"
                 class="notes-field"
                 id="notes-field"></textarea>
-              <div id="save-button">
-                <button>SAVE</button>
+              <div id="delete-and-save-buttons">
+                <button id="delete-entry-button" class="hide">
+                  Delete Entry
+                </button>
+                <dialog>
+                  <p>Are you sure you want to delete this entry?</p>
+                  <div class="modal-actions">
+                    <button class="cancel-modal">CANCEL</button>
+                    <button class="confirm-modal">CONFIRM</button>
+                  </div>
+                </dialog>
+                <button id="save-button">SAVE</button>
               </div>
             </div>
           </div>

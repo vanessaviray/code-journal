@@ -1,17 +1,30 @@
 // /* global data */
 
-const $photoUrlElement = document.querySelector('#photo-url-field');
+const $photoUrlElement = document.querySelector(
+  '#photo-url-field'
+) as HTMLInputElement;
+const $image = document.querySelector('img') as HTMLImageElement;
+
 if (!$photoUrlElement) throw new Error('the photo-url-field query failed');
-const $image = document.querySelector('img');
+
+// CHANGE IMAGE BEING DISPLAYED (EDIT ENTRY VIEW)
 
 function getPhoto(event: Event): void {
   const eventTarget = event.target as HTMLFormElement;
   const photoUrl = eventTarget.value;
   if (!$image) throw new Error('the img query failed');
-  $image.src = photoUrl;
+  if (photoUrl === '') {
+    $image.src = 'images/placeholder-image-square.jpg';
+    $image.alt = 'placeholder image';
+  } else {
+    $image.src = photoUrl;
+    $image.alt = 'image provided';
+  }
 }
 
 $photoUrlElement.addEventListener('input', getPhoto);
+
+// INTERFACES
 
 interface FormElements extends HTMLFormControlsCollection {
   title: HTMLInputElement;
@@ -28,18 +41,25 @@ interface Entry {
 }
 
 const $form = document.querySelector('#form') as HTMLFormElement;
-const $liElements = document.getElementsByTagName('li');
-const $titleElement = document.querySelector('#title-field');
+const $liElements = document.getElementsByTagName('li') as HTMLCollection;
+const $titleElement = document.querySelector(
+  '#title-field'
+) as HTMLInputElement;
 const $notesElement = document.querySelector(
   '#notes-field'
 ) as HTMLTextAreaElement;
-const $entryTitle = document.querySelector('#entryTitle');
+const $entryTitle = document.querySelector('#entryTitle') as HTMLHeadingElement;
+const $deleteEntryButton = document.querySelector(
+  '#delete-entry-button'
+) as HTMLButtonElement;
 
 if (!$form) throw new Error('the form query failed');
 if (!$liElements) throw new Error(`the 'li' query failed`);
 if (!$titleElement) throw new Error(`the '#title-field' query failed`);
 if (!$notesElement) throw new Error(`the '#notes-field' query failed`);
 if (!$entryTitle) throw new Error(`the '#entriesTitle' query failed`);
+if (!$deleteEntryButton)
+  throw new Error(`the '#delete-entry-button' query failed`);
 
 $form.addEventListener('submit', (event: Event): void => {
   event.preventDefault();
@@ -86,9 +106,10 @@ $form.addEventListener('submit', (event: Event): void => {
   $form.reset();
   viewSwap('entries');
   toggleNoEntries();
+  deleteEntryButtonView();
 });
 
-// generate and return a DOM tree for the li element
+// GENERATE AND RETURN A DOM TREE FOR THE LI ELEMENT
 
 function renderEntry(entry: Entry): HTMLElement {
   const $liElement = document.createElement('li');
@@ -128,9 +149,9 @@ function renderEntry(entry: Entry): HTMLElement {
   return $liElement;
 }
 
-// add event listener which listens for DOMContentLoaded event
+// ADD EVENT LISTENER TO UNORDERED LIST ELEMENT
 
-const $ulElement = document.querySelector('ul') as HTMLElement;
+const $ulElement = document.querySelector('ul') as HTMLUListElement;
 if (!$ulElement) throw new Error(`the 'ul' query failed`);
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -142,9 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleNoEntries();
 });
 
-// toggleNoEntries function to toggle the no entries text to show or hide when the function is called.
+// CREATE FUNCTION TO TOGGLE THE NO ENTRIES TEXT TO SHOW OR HIDE
 
-const $noEntriesElement = document.getElementById('no-entries');
+const $noEntriesElement = document.getElementById(
+  'no-entries'
+) as HTMLParagraphElement;
 
 function toggleNoEntries(): void {
   if (!$noEntriesElement) throw new Error(`the 'no-entries' query failed`);
@@ -155,10 +178,10 @@ function toggleNoEntries(): void {
   }
 }
 
-// created viewSwap function to show the view whose name was provided as an argument
+// CREATE FUNCTION TO SHOW VIEW WHOSE NAME WAS PROVIDED IN THE ARGUMENT
 
-const $entriesDiv = document.querySelector('#entries');
-const $entryForm = document.querySelector('#entry-form');
+const $entriesDiv = document.querySelector('#entries') as HTMLAnchorElement;
+const $entryForm = document.querySelector('#entry-form') as HTMLDivElement;
 
 function viewSwap(view: string): void {
   const valueOfView = view;
@@ -176,23 +199,34 @@ function viewSwap(view: string): void {
   }
 }
 
-// Added an event handler function for the 'entries' anchor in the navbar
+// ADD EVENT LISTENER FOR THE THE 'ENTRIES' ANCHOR IN THE NAVBAR
 
-const $aElement = document.querySelector('a');
+const $aElement = document.querySelector('a') as HTMLAnchorElement;
 if (!$aElement) throw new Error(`the 'a' query failed`);
 
 $aElement.addEventListener('click', () => {
+  data.editing = null;
+  deleteEntryButtonView();
   viewSwap('entries');
+  $entryTitle.textContent = 'New Entry';
+  $titleElement.setAttribute('value', '');
+  $photoUrlElement.setAttribute('value', '');
+  $notesElement.value = '';
+
+  if (!$image) throw new Error('the img query failed');
+  $image.src = 'images/placeholder-image-square.jpg';
 });
 
-const $newButtonElement = document.querySelector('#new-button');
+const $newButtonElement = document.querySelector(
+  '#new-button'
+) as HTMLAnchorElement;
 if (!$newButtonElement) throw new Error(`the '#new-button' query failed`);
 
 $newButtonElement.addEventListener('click', () => {
   viewSwap('entry-form');
 });
 
-// added an event listener to the ul (pencil icon)
+// ADD EVENT LISTENER TO THE UNORDERED LIST WHEN THE PENCIL ICON IS CLICKED
 
 $ulElement.addEventListener('click', (event) => {
   viewSwap('entry-form');
@@ -215,9 +249,63 @@ $ulElement.addEventListener('click', (event) => {
 
         if (!$image) throw new Error('the img query failed');
         $image.src = data.entries[i].photoUrl;
-
         $entryTitle.textContent = 'Edit Entry';
+        deleteEntryButtonView();
       }
     }
   }
 });
+
+// ADD MODAL TO THE DELETE ENTRY BUTTON
+
+const $confirmModal = document.querySelector(
+  '.confirm-modal'
+) as HTMLButtonElement;
+const $cancelModal = document.querySelector(
+  '.cancel-modal'
+) as HTMLButtonElement;
+const $dialog = document.querySelector('dialog') as HTMLDialogElement;
+
+if (!$confirmModal) throw new Error('The .confirm-modal query failed');
+if (!$cancelModal) throw new Error('The .dismiss-modal query failed');
+if (!$dialog) throw new Error('The dialog query failed');
+
+$deleteEntryButton.addEventListener('click', (event) => {
+  $dialog.showModal();
+  event.preventDefault();
+});
+
+$cancelModal.addEventListener('click', () => {
+  $dialog.close();
+});
+
+$confirmModal.addEventListener('click', () => {
+  $dialog.close();
+  viewSwap('entries');
+  toggleNoEntries();
+
+  if (data.editing !== null) {
+    const dataEditingId = data.editing.entryId;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (dataEditingId === data.entries[i].entryId) {
+        data.entries.splice(i, 1);
+      }
+    }
+    for (let i = 0; i < $liElements.length; i++) {
+      const liDataEntryId = $liElements[i].getAttribute('data-entry-id');
+      if (liDataEntryId === dataEditingId.toString()) {
+        $liElements[i].remove();
+      }
+    }
+  }
+});
+
+// CREATE FUNCTION TO SHOW WHEN THE DELETE ENTRY BUTTON SHOULD BE DISPLAYED
+
+function deleteEntryButtonView(): void {
+  if (data.editing !== null) {
+    $deleteEntryButton.removeAttribute('class');
+  } else {
+    $deleteEntryButton.className = 'hide';
+  }
+}
